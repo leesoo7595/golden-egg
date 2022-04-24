@@ -38,13 +38,22 @@ const EventListener = {
     polyline
       .getPath()
       .forEach((_: naver.maps.Polyline) => polyline.getPath().pop());
-    // polyline.getPath() = [];
   },
   markerExportButtonEventListener(
     markerList: naver.maps.Marker[],
     e: MouseEvent
   ) {
-    console.log(markerList, 'export');
+    const markerExportAElement = document.getElementById('export-btn');
+    markerExportAElement?.setAttribute(
+      'href',
+      'data:text/plain;charset=utf-8,' +
+        encodeURIComponent(markerList.map((m) => m.getPosition()).join(' '))
+    );
+    markerExportAElement?.setAttribute('download', 'text');
+    console.log(
+      markerList.map((m) => m.getPosition()),
+      'export'
+    );
   },
 };
 
@@ -94,8 +103,8 @@ const EventSetting = {
     );
   },
   exportFileEventSetting(markerList: naver.maps.Marker[]) {
-    const markerExportButtonElement = document.getElementById('export-btn');
-    markerExportButtonElement?.addEventListener(
+    const markerExportAElement = document.getElementById('export-btn');
+    markerExportAElement?.addEventListener(
       'click',
       EventListener.markerExportButtonEventListener.bind(null, markerList)
     );

@@ -29,10 +29,13 @@ const EventListener = {
         polyline
             .getPath()
             .forEach((_) => polyline.getPath().pop());
-        // polyline.getPath() = [];
     },
     markerExportButtonEventListener(markerList, e) {
-        console.log(markerList, 'export');
+        const markerExportAElement = document.getElementById('export-btn');
+        markerExportAElement === null || markerExportAElement === void 0 ? void 0 : markerExportAElement.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+            encodeURIComponent(markerList.map((m) => m.getPosition()).join(' ')));
+        markerExportAElement === null || markerExportAElement === void 0 ? void 0 : markerExportAElement.setAttribute('download', 'text');
+        console.log(markerList.map((m) => m.getPosition()), 'export');
     },
 };
 const EventSetting = {
@@ -56,7 +59,7 @@ const EventSetting = {
         markerRemoveButtonElement === null || markerRemoveButtonElement === void 0 ? void 0 : markerRemoveButtonElement.addEventListener('click', EventListener.markerRemoveAllButtonEventListener.bind(null, markerList, polyline));
     },
     exportFileEventSetting(markerList) {
-        const markerExportButtonElement = document.getElementById('export-btn');
-        markerExportButtonElement === null || markerExportButtonElement === void 0 ? void 0 : markerExportButtonElement.addEventListener('click', EventListener.markerExportButtonEventListener.bind(null, markerList));
+        const markerExportAElement = document.getElementById('export-btn');
+        markerExportAElement === null || markerExportAElement === void 0 ? void 0 : markerExportAElement.addEventListener('click', EventListener.markerExportButtonEventListener.bind(null, markerList));
     },
 };
