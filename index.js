@@ -20,7 +20,7 @@ const EventListener = {
     markerRemoveOneClickEventListener(markerList, marker, polyline, coord) {
         return (e) => {
             marker === null || marker === void 0 ? void 0 : marker.setMap(null);
-            markerList = [...markerList.filter((m) => m !== marker)];
+            markerList.splice(markerList.findIndex((m) => m !== marker), 1);
             polyline.getPath().pop(coord);
         };
     },
@@ -44,7 +44,6 @@ const EventSetting = {
         naver.maps.Event.addListener(map, 'click', function (e) {
             const coord = e.coord;
             polyline.getPath().push(coord);
-            console.log('polyline', polyline);
             marker = new naver.maps.Marker({
                 position: coord,
                 clickable: true,
