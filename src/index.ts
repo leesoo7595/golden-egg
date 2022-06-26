@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
     center: new naver.maps.LatLng(37.511337, 127.012084),
     zoom: 13,
   });
-  let markerList: naver.maps.Marker[] = [];
+  let markerList: naver.maps.Marker[] = []
   let polyline = new naver.maps.Polyline({
     map,
     path: [],
@@ -25,7 +25,8 @@ const EventListener = {
   ) {
     return (e: MouseEvent) => {
       marker?.setMap(null);
-      markerList.splice(markerList.findIndex((m) => m !== marker), 1);
+      markerList.splice(markerList.findIndex((m) => m === marker), 1)
+      console.log('markerList', markerList)
       polyline.getPath().pop(coord);
     };
   },
@@ -35,6 +36,8 @@ const EventListener = {
     e: MouseEvent
   ) {
     markerList.forEach((m) => m.setMap(null));
+    markerList.splice(0, markerList.length);
+    console.log('markerList', markerList)
     polyline
       .getPath()
       .forEach((_: naver.maps.Polyline) => polyline.getPath().pop());
@@ -80,7 +83,7 @@ const EventSetting = {
           markerList,
           marker,
           polyline,
-          coord
+          coord,
         )
       );
     });
