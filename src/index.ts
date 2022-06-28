@@ -25,6 +25,7 @@ const EventListener = {
   ) {
     return (e: MouseEvent) => {
       marker?.setMap(null);
+      console.log(e);
       markerList.splice(markerList.findIndex((m) => m === marker), 1)
       console.log('markerList', markerList)
       polyline.getPath().pop(coord);
